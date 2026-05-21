@@ -6,7 +6,7 @@
 - [Table of Techniques](#techniques)
 
 ## Summary
-`persisthunt.sh` helps speed up investigations by collecting targeted persistence-related artifacts and highlighting suspicious patterns commonly associated with Linux persistence techniques.
+[`persisthunt.sh`](./persisthunt.sh) helps speed up investigations by collecting targeted persistence-related artifacts and highlighting suspicious patterns commonly associated with Linux persistence techniques.
 
 The script assists in persistence detection, threat hunting, and artifact collection across well-known Linux persistence mechanisms. Findings are categorized into three levels - `High`, `Low`, and `Informational` based on confidence and severity. Examples include suspicious autorun entries referencing `/tmp/`, `/home/`, `/dev/tcp`, `curl`, or detection of active bind/reverse shells.
 
