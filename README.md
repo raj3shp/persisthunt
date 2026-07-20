@@ -1,4 +1,4 @@
-# Linux Persistence Detection, Hunting and Arftifact Collection
+# Linux Persistence Detection, Hunting and Artifact Collection
 
 - [Summary](#summary)
 - [Usage](#usage)
