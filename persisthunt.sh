@@ -39,7 +39,7 @@ done
 # High-confidence: Active Bind Shell
 # Look for interpreter processes (like bash/sh/python) listening on network socket
 print_header "[HIGH] Active bind shell"
-ss -lptnH 2>/dev/null 2>/dev/null | while read -r conn_line; do
+ss -lptnH 2>/dev/null | while read -r conn_line; do
   conn=$(echo "$conn_line" | awk '{print $4" "$5" "$6}')
   proc=$(echo "$conn" | awk '{print $3}');
   if [[ -n "$proc" ]]; then
@@ -59,7 +59,7 @@ done
 print_header "[HIGH] Active reverse shell"
 ps aux 2>/dev/null | while read -r ps_line; do
   pid=$(echo "$ps_line" | awk '{print $2}')
-  if [[ -n "$$pid" ]]; then
+  if [[ -n "$pid" ]]; then
     exe=$(cat /proc/$pid/comm 2>/dev/null)
     case "$exe" in
       bash|sh|zsh|dash|ksh|python*|perl|nc|ncat|socat)
@@ -116,7 +116,7 @@ find  / -path */dbus-1/* -type f -name '*.service' 2>/dev/null | xargs grep -EH 
 print_header "[HIGH] NetworkManager dispatcher scripts referencing a suspicious keyword"
 find  / -path */NetworkManager/dispatcher.d/* -type f -executable 2>/dev/null | xargs grep -EH "$SUS_KEYWORDS_REGEX" 2>/dev/null
 
-# High-confidence: Dotfiles in home directories (possible agent configs/binaries)
+# High-confidence: Hidden ELF executable files in tmp/home/hidden dirs
 print_header "[HIGH] Hidden ELF executable files in tmp/home/hidden dirs"
 find /tmp /var/tmp /home /dev/shm/ -type f -name ".*" 2>/dev/null | while read -r f; do
   [[ -f "$f" ]] && file "$f" | grep -q 'ELF' && echo "$f";
@@ -360,6 +360,6 @@ elif command -v dnf &>/dev/null; then
   dnf list installed
 fi
 
-# Informational: Loded kernel modules
+# Informational: Loaded kernel modules
 print_header "[INFORMATIONAL] Loaded kernel modules (manual review)"
 lsmod 2>/dev/null
